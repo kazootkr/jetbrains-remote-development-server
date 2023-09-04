@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+
+  remote-dev-server:
+    build:
+      context: docker/remote-dev-server
+    ports:
+      - "2222:22"
+    volumes:
+      - type: volume
+        source: source-code
+        target: /root/projects
+      - type: volume
+        source: remote-dev-server-config
+        target: /root/.config/JetBrains
+      - type: volume
+        source: remote-dev-server-cache
+        target: /root/.cache/JetBrains
+    environment:
+      - PROJDIR=php-project
+
+volumes:
+
+  source-code:
+    name: source-code-storage
+    external: true
+
+  remote-dev-server-config:
+
+  remote-dev-server-cache:
